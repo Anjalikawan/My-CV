@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Image</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="panels">
+        <div class="panel image1" >
+            <p>Love</p>
+            <p>THE</p>
+            <p>Animals</p>
+        </div>
+        <div class="panel image2">
+            <p>Dream</p>
+            <p>Big</p>
+            <p>Everyday</p>
+        </div>
+        <div class="panel image3">
+            <p>Experience</p>
+            <p>It</p>
+            <p>Today</p>
+        </div>
+        <div class="panel image4">
+            <p>Give</p>
+            <p>Love</p>
+            <p>Nature</p>
+        </div>
+    </div>
+    
+</body>
+   <script>
+    //classlist - return css classname of element
+    //toggle - adding and removing  data in className
+    const pan = document.querySelectorAll('.panel')
+
+    function toggleOpen(){
+        this.classList.toggle('open')
+    }
+
+    function toggleActive(e){
+        if(e.propertyName.includes('flex'))
+        this.classList.toggle('open-active')
+    }
+
+    pan.forEach(panel => panel.addEventListener('click',toggleOpen))
+    pan.forEach(panel => panel.addEventListener('transitionend',toggleActive))
+
+   </script>
+</html>

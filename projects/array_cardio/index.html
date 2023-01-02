@@ -1,0 +1,154 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Array Cardio</title>
+    </head>
+    <body>
+        <p>please, have a look at the console  to view result(using some instance methods of JavaScript Array)</p>
+        
+
+    </body>
+    <script>
+        // object  vitra array
+        const details = [
+            {firstName: 'sita', lastName: 'giri', year: 1650, passedYear: 1799},
+            {firstName: 'hari', lastName: 'magar', year: 1745, passedYear: 1845},
+            {firstName: 'bita', lastName:'rai', year: 1523, passedYear: 1665},
+            {firstName: 'abitin', lastName:'rai', year: 1823, passedYear:1900},
+            {firstName: 'rita', lastName:'panji', year: 1500, passedYear: 1745},
+            {firstName: 'dins', lastName: 'tamang', year: 1643, passedYear: 1802},
+            {firstName: 'ram', lastName: 'shahi', year:1995, passedYear:2005}
+
+        ];
+        //Array.prototype.filter() is shallow copy(point to same value in object and it's used in loop condition)
+        //finding the year in details who was born in 1500;
+        /*const yrs = details.filter( function(detail){
+            if(detail.year >= 1500 && detail.year <= 1700){
+            return true;
+            }
+        }); OR*/
+        const yrs = details.filter(detail => detail.year >= 1500 && detail.year <= 1700)
+        console.table(yrs)
+
+        /*Array.prototype.map() means create/return new array 
+        not using the array it returns; and/or
+        not returning a value from the callback*/
+        // find firstName and lastName 
+        /*const name = details.map(detail)
+        
+        function detail(item){
+            return [item.firstName,item.lastName].join(" ") //join()create new string within array
+        } or*/
+        const name = details.map(detail => `${detail.firstName} ${detail.lastName}`)
+        name.sort()
+        console.log(name)
+
+        /*array.prototype.sort() means manage data of element as string and niumber  to convert ascending and descending order 
+          compare function in (a,b) return a-b/b-a , > a after b, < a before b, = equal*/
+        //find birth of youngerto oldest
+        const order = details.sort((a,b) => a.year > b.year ? 1: -1)
+        console.table(order)
+        
+        // years lived
+        const live = details.sort((a,b) => {
+            const last = a.passedYear - a.year
+            const next = b.passedYear - b.year
+            return last < next ? 1 : -1
+        })
+        console.table(live)
+
+        //sort exercise
+        //last name  of aplhabetically
+        const person = ['giri, sita', 'rai, bita', 'magar, hari', 'bihae, kira', 'brie, abitin', 'gurung, rita']
+        const alpha = person.sort((a, b) => {
+            const [aLast, aFirst] = a.split(', ');
+            const [bLast, bFirst] = b.split(', ');
+            return aLast > bLast ? 1 : -1;
+        });
+        console.log(alpha);
+
+        /*Array.prototype.reduce()*/
+        // How many years did all the inventors live all together
+        /*  let s = [1,2,3,4]
+            let total = 0
+            for(let i=0;i<s.length;i++){
+                total+=s[i]
+            }
+            console.log(total)*/
+        const total = details.reduce((total, detail) => total + (detail.passedYear - detail.year), 0)
+        console.log(total)
+        
+        // reduce() exercise = (??=) same valves  are count in array 
+        const data = ['sita','hari','sita','ram','sita','ram']
+        const input = data.reduce((previousValve, currentValue) =>{
+           // previousValve[currentValue] ??= 0 
+           if(!previousValve[currentValue]){
+            previousValve[currentValue] = 0
+           }
+            previousValve[currentValue]++
+            return previousValve
+        }, {})
+        console.table(input)
+
+        // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
+        // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+
+            /*const category = document.querySelector('.mw-category');
+            const links = Array.from(category.querySelectorAll('a'));
+            const de = links
+                    .map(link => link.textContent)
+                    .filter(streetName => streetName.includes('de'));*/
+
+        
+                    
+        // Array cardio 2 
+        // some find fill every
+        const people = [
+            {name: 'luka', age: 23, year: 1988},
+            {name: 'cla', age: 15, year:1986},
+            {name: 'bilaa', age: 10, year: 2000}
+        ]
+        // Array.prototype.some return true/false
+        // least one people is 18 
+        const peo = people.some(adult => {
+            return adult.age >= 18
+        })
+        console.log(peo)
+       // const lt = people.some(adult => (new Date().getFullYear) - adult.year >=18)
+        //console.log(lt)
+
+        //Array.prototype.every() return boolean value
+        // everyone 19 or more
+        const birth = people.every(isAdult =>{
+            const demo = new Date().getFullYear()
+            if(demo - isAdult >= 19){
+                return true
+            } 
+        })
+        console.log(birth)
+
+        //Array.prototype.find() - object in a array
+        const result = people.find(({name}) => name === 'cla')
+        console.log(result)
+
+        //Array. prototype.findIndex()
+        const animals = ['dog', 'cat', 'lion', 'tiger', 'pigeons']
+        const  index =animals.findIndex( (animal) => animal === 'cat' )
+        console.log(index)
+        console.log(animals[index])
+
+        //Array.prototype.splice(start,delete,items)
+        const removed = animals.splice(4,1,"cow")
+        console.log(removed)
+        console.log(animals)
+         //OR
+        /*const removeData =[
+            ...animals.slice(0,index),
+            ...animals.slice(index + 1)
+        ];
+        console.log(removeData)*/
+    </script>
+    </html>

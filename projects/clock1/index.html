@@ -1,0 +1,42 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Clock</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="clock">
+            <div class="clock-hand">
+                <div class="hand" id="hour" ></div>
+                <div class="hand" id="minute"></div>
+                <div class="hand" id="second"></div>
+            </div>
+        </div>
+        
+    </body>
+    <script>
+        let hourhand = document.getElementById("hour");
+        let minutehand = document.getElementById("minute");
+        let secondhand = document.getElementById("second");
+        function setClock(){
+            let date = new Date();
+            let hrs = date.getHours();
+            let hrsDegrees = ((hrs/12) * 360) + 90;
+            hourhand.style.transform = `rotate(${hrsDegrees}deg)`;
+            
+            let min = date.getMinutes();
+            let minDegrees = ((min/60) * 360) + 90;
+            minutehand.style.transform = `rotate(${minDegrees}deg)`;
+            
+            let sec = date.getSeconds();
+            let secDegrees = ((sec/60) * 360) + 90;
+            secondhand.style.transform = `rotate(${secDegrees}deg)`;
+
+            //console.log(hourhand.style.color)
+        }
+        setInterval(setClock, 1000)
+    </script>
+    </html>

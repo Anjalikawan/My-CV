@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX TYPE AHEAD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form class="search">
+        <input type="text" class="column" placeholder="City">
+        <ul class="values">
+            <!--<li>Filter for city</li>!-->
+        </ul>
+    </form>
+    
+</body>
+<script>
+    //data of USA only in point
+    const point = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+     
+    const cities = [];
+    fetch(point).then(blob => blob.json()).then(data => cities.push(...data))
+
+    function findMatchsDate(wordMatch, cities){
+        return cities.filter(item => {
+            const regex = new RegExp(wordMatch, 'gi');
+            return item.city.match(regex) || item.state.match(regex); 
+        });
+       
+    }
+    /*function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }*/
+
+    const searchs = document.querySelector('.column');
+    const value = document.querySelector('.values');
+    
+    function displayMatchsData() {
+        const inputs = findMatchsDate(this.value, cities);
+        const htmlInput = inputs.map(place => {
+            const reg= new RegExp(this.value, 'gi');
+            //replace means return new string wit one or all match of pattern replaced
+            const cityName = place.city.replace(reg, `<span class='hl'>${this.value}</span>`);
+            const stateName = place.city.replace(reg, `<span class='hl'>${this.value}</span>`);
+            const popula = place.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+            return `
+            <li>
+                <span class='name'>${cityName}, ${stateName}</span>
+                <span class='population'>${popula}</span>
+            </li>
+            `;
+              
+        }).join('');
+        value.innerHTML = htmlInput;
+        
+    }
+
+    searchs.addEventListener('change', displayMatchsData)
+    searchs.addEventListener('keyup', displayMatchsData)
+</script>
+</html>

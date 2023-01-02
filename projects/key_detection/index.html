@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Detection</title>
+    <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+
+<h3>Random stickers are displayed on the screen whenever you type the secret-word on the keyboard.
+    "Secret-word = animal"
+</h3>
+
+    <script>
+        let pressed = [];
+        let secretcode ='animal';
+        window.addEventListener('keyup', (e) => {
+            console.log(e.key);
+            pressed.push(e.key);
+            pressed.splice(-secretcode.length-1, pressed.length-secretcode.length);
+            if(pressed.join('').includes(secretcode)){
+                console.log('ring ring');
+
+                cornify_add();
+                
+            }
+            console.log(pressed)
+        })
+    </script>
+</body>
+</html>
